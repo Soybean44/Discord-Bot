@@ -4,6 +4,10 @@ AUTHOR: SOVEREIGN SHAHID
 DATE: 2022-09-24
 """
 from discord import Option, Bot, ApplicationContext
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 bot = Bot()
 
@@ -20,4 +24,4 @@ async def echo(
 
 
 
-bot.run('MTAyMzM0Nzg3MDMxNDgwMzI0MA.Gj6TPK.CORn8PodaXqP8XzlI_tgcuZbLtNIazEgz4xb5o')
+bot.run(os.getenv("BOT_TOKEN"))
