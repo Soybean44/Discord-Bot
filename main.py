@@ -51,11 +51,14 @@ async def confession(
     confession: Option(str, "Enter Confession")
 ):
     global bot
-    embed = Embed(title="Confession", description=f"{confession}")
+    confession_embed = Embed(title="Confession", description=confession)
     confession_channel = bot.get_channel(1044695496310132836)
     log_channel = bot.get_channel(1049512969022734437)
-    await log_channel.send(f"{ctx.user} sent a confession at {datetime.datetime.now()}")
-    await confession_channel.send(embed=embed)
+    log_embed = Embed(title="Confession log", description=f"{ctx.user} sent the following confession")
+    log_embed.add_field(name="Timestamp", value=datetime.datetime.now())
+    log_embed.add_field(name="Confession", value=confession)
+    await log_channel.send(embed=log_embed)
+    await confession_channel.send(embed=confession_embed)
     await ctx.send_response(content="Confession was sent sucessfully", ephemeral=True)
 
 
