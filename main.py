@@ -16,6 +16,8 @@ load_dotenv()
 with open("yo_mama_jokes.json") as f:
     jokes = json.load(f)
 
+with open("pickup_lines.json") as f:
+    pickup_lines = json.load(f)
 
 
 intents = Intents.default()
@@ -32,7 +34,7 @@ async def on_message(message):
     if message.author == bot.user:
         return
     if "mom" in message.content.lower():
-        await message.channel.send(jokes[random.randint(0,len(jokes)-1)])
+        await message.channel.send(jokes[random.randrange(len(jokes))])
 
 
 
@@ -60,6 +62,11 @@ async def confession(
     await log_channel.send(embed=log_embed)
     await confession_channel.send(embed=confession_embed)
     await ctx.send_response(content="Confession was sent sucessfully", ephemeral=True)
+
+@bot.slash_command(description="")
+async def pickup_line_generator(ctx: ApplicationContext):
+    global pickup_lines
+    await ctx.send_response(pickup_lines[random.randrange(len(pickup_lines))])
 
 bot.run(os.getenv("BOT_TOKEN"))
 
