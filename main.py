@@ -9,6 +9,7 @@ import random
 import json
 import os
 import datetime
+from keep_alive import keep_alive
 
 load_dotenv()
 
@@ -105,5 +106,7 @@ async def yo_mama_generator(ctx: ApplicationContext):
   res = f"{jokes[random.randrange(len(jokes))]}"
   await ctx.send_response(res)
 
+
+keep_alive()
 
 bot.run(os.getenv("BOT_TOKEN"))
