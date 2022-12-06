@@ -3,16 +3,20 @@ TITLE: King Nerd Bot Main File
 AUTHOR: SOVEREIGN SHAHID
 DATE: 2022-09-24
 """
-from discord import Option, Bot, ApplicationContext, Intents
+from discord import Option, Bot, ApplicationContext, Intents, Embed, ui
 from dotenv import load_dotenv
+import requests
 import random
 import json
 import os
+import datetime
 
 load_dotenv()
 
 with open("yo_mama_jokes.json") as f:
     jokes = json.load(f)
+
+
 
 intents = Intents.default()
 intents.message_content = True
@@ -33,12 +37,26 @@ async def on_message(message):
 
 
 
-@bot.slash_command(guild_ids=[1019797564620554342], description="Repeats What you say",)
+@bot.slash_command(description="Repeats What you say",)
 async def echo(
     ctx: ApplicationContext,
     phrase: Option(str, "Enter Phrase")
 ):
     await ctx.respond(f"{phrase}")
+
+
+@bot.slash_command(description="Anonymous Confessions",)
+async def confession(
+    ctx: ApplicationContext,
+    confession: Option(str, "Enter Confession")
+):
+    global bot
+    embed = Embed(title="Confession", description=f"{confession}")
+    confession_channel = bot.get_channel(1019801480657637466)
+    log_channel = bot.get_channel(1049512969022734437)
+    await log_channel.send(f"{ctx.user} sent a confession at {datetime.datetime.now()}")
+    await confession_channel.send(embed=embed)
+    await ctx.send_response(content="Confession was sent sucessfully", ephemeral=True)
 
 
 
