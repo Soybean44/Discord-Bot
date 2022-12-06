@@ -5,7 +5,6 @@ DATE: 2022-09-24
 """
 from discord import Option, Bot, ApplicationContext, Intents, Embed, ui
 from dotenv import load_dotenv
-import requests
 import random
 import json
 import os
