@@ -81,7 +81,8 @@ async def confession(ctx: ApplicationContext,
                           ephemeral=True)
 
 
-@bot.slash_command(description="")
+@bot.slash_command(
+  description="Generates pickup lines for you so you can get bitches")
 async def pickup_line_generator(ctx: ApplicationContext,
                                 ping: Option(str,
                                              "Ping the person of your dreams",
@@ -92,6 +93,16 @@ async def pickup_line_generator(ctx: ApplicationContext,
     res = f"{pickup_lines[random.randrange(len(pickup_lines))]}"
   else:
     res = f"{ping}: {pickup_lines[random.randrange(len(pickup_lines))]}"
+  await ctx.send_response(res)
+
+
+@bot.slash_command(
+  description=
+  "Command for yo mama jokes so you dont have to spam mommy every time")
+async def yo_mama_generator(ctx: ApplicationContext):
+  global jokes
+
+  res = f"{jokes[random.randrange(len(jokes))]}"
   await ctx.send_response(res)
 
 
