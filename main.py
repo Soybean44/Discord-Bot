@@ -3,7 +3,7 @@ TITLE: King Nerd Bot Main File
 AUTHOR: SOVEREIGN SHAHID
 DATE: 2022-09-24
 """
-from discord import Option, Bot, ApplicationContext, Intents, Embed, ui
+from discord import Option, Bot, ApplicationContext, Intents, Embed
 from dotenv import load_dotenv
 import random
 import json
