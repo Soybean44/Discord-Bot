@@ -70,9 +70,17 @@ async def confession(
     await ctx.send_response(content="Confession was sent sucessfully", ephemeral=True)
 
 @bot.slash_command(description="")
-async def pickup_line_generator(ctx: ApplicationContext):
+async def pickup_line_generator(
+        ctx: ApplicationContext,
+        ping: Option(str, "Ping the person of your dreams", required=False)
+):
     global pickup_lines
-    await ctx.send_response(pickup_lines[random.randrange(len(pickup_lines))])
+
+    if not ping:
+        res = f"{pickup_lines[random.randrange(len(pickup_lines))]}"
+    else:
+        res = f"{ping}: {pickup_lines[random.randrange(len(pickup_lines))]}"
+    await ctx.send_response(res)
 
 bot.run(os.getenv("BOT_TOKEN"))
 
