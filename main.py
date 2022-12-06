@@ -63,4 +63,3 @@ async def confession(
 
 bot.run(os.getenv("BOT_TOKEN"))
 
-# Hello Mommy
