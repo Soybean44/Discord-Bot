@@ -33,8 +33,14 @@ async def on_message(message):
     global jokes
     if message.author == bot.user:
         return
-    if "mom" in message.content.lower():
-        await message.channel.send(jokes[random.randrange(len(jokes))])
+    mom_words = ["mom", "mum", "ma ", "mama", "mother"]
+
+    for mom in mom_words:
+        if mom in message.content.lower():
+            await message.channel.send(jokes[random.randrange(len(jokes))])
+        elif "ma" == message.content.lower():
+            await message.channel.send(jokes[random.randrange(len(jokes))])
+            break
 
 
 
