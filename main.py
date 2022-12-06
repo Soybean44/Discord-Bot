@@ -52,7 +52,7 @@ async def confession(
 ):
     global bot
     embed = Embed(title="Confession", description=f"{confession}")
-    confession_channel = bot.get_channel(1019801480657637466)
+    confession_channel = bot.get_channel(1044695496310132836)
     log_channel = bot.get_channel(1049512969022734437)
     await log_channel.send(f"{ctx.user} sent a confession at {datetime.datetime.now()}")
     await confession_channel.send(embed=embed)
