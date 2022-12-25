@@ -28,7 +28,7 @@ bot = Bot(intents=intents)
 
 mommy_enable = True
 mommy_count = 0
-mommy_max = 1
+mommy_max = 3
 
 
 # --- BOT STUFF --- #
