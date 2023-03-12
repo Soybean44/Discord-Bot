@@ -30,6 +30,8 @@ mommy_enable = True
 mommy_count = 0
 mommy_max = 3
 
+confession_number = 0
+
 
 # --- BOT STUFF --- #
 
@@ -71,11 +73,12 @@ async def echo(ctx: ApplicationContext, phrase: Option(str, "Enter Phrase")):
     description="Anonymous Confessions", )
 async def confession(ctx: ApplicationContext,
                      confession: Option(str, "Enter Confession")):
-    global bot
-    confession_embed = Embed(title="Confession", description=confession)
+    global bot, confession_number
+    confession_number += 1
+    confession_embed = Embed(title=f"Confession (#{confession_number})", description=confession)
     confession_channel = bot.get_channel(1044695496310132836)
     log_channel = bot.get_channel(1049512969022734437)
-    log_embed = Embed(title="Confession log",
+    log_embed = Embed(title=f"Confession log (#{confession_number})",
                       description=f"{ctx.user} sent the following confession")
     log_embed.add_field(name="Timestamp", value=datetime.datetime.now())
     log_embed.add_field(name="Confession", value=confession)
