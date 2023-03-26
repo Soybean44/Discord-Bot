@@ -10,6 +10,7 @@ import random
 import json
 import os
 import datetime
+import numexpr
 
 load_dotenv()
 
@@ -64,7 +65,7 @@ async def on_message(message):
 
 
 @bot.slash_command(
-    description="Repeats What you say", )
+    description="Repeats What you say")
 async def echo(ctx: ApplicationContext, phrase: Option(str, "Enter Phrase")):
     await ctx.respond(f"{phrase}")
 
@@ -128,5 +129,10 @@ async def yo_mama_enable(ctx: ApplicationContext):
         res = "You aren't allowed to do that"
     await ctx.send_response(content=res, ephemeral=True)
 
+@bot.slash_command(
+    description="solves math for you")
+async def math(ctx: ApplicationContext, equation: Option(str, "Enter equation")):
+    ans = numexpr.evaluate(equation)
+    await ctx.respond(f"{equation} = {ans}")
 
 bot.run(os.getenv("BOT_TOKEN"))

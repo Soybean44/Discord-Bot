@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  bot:
+    image: king_nerd_bot
+    container_name: king_nerd
+    volumes:
+            - /home/soybean44/code/python/King-Nerd-Discord-Bot:/app
+    restart: always
+    ports:
+      - "6463:6472"
