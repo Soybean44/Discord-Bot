@@ -47,7 +47,7 @@ async def on_message(message):
     global jokes, mommy_count, mommy_max
     if message.author == bot.user:
         return
-    mom_words = ["mom", "mum", "ma ", "mama", "mother"]
+    mom_words = ["mom", "mum", "ma ", "mama", "mother", "mommy"]
 
     words = message.content.lower().split()
     if mommy_enable:
