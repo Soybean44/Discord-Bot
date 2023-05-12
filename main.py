@@ -49,16 +49,15 @@ async def on_message(message):
         return
     mom_words = ["mom", "mum", "ma ", "mama", "mother"]
 
+    words = message.content.lower().split()
     if mommy_enable:
         for mom in mom_words:
-            if mom in message.content.lower():
+            if any(word == mom for word in words):
                 if mommy_count == 0:
                     await message.channel.send(jokes[random.randrange(len(jokes))])
                 else:
                     pass
                 mommy_count += 1
-        if "ma" == message.content.lower() and mommy_count == 0:
-            await message.channel.send(jokes[random.randrange(len(jokes))])
 
         if mommy_count >= mommy_max:
             mommy_count = 0
