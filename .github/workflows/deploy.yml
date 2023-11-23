@@ -13,6 +13,6 @@ jobs:
       - name: executing remote ssh commands using ssh key
         run: |
           mkdir ~/.ssh
-          cat ${{ secrets.KEY }} > ~/.ssh/id_rsa.pub
+          cat '${{ secrets.KEY }}' > ~/.ssh/id_rsa.pub
           ssh ${{ secrets.USERNAME }}@${{secrets.HOST}}
           whoami
