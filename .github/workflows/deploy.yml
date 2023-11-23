@@ -1,8 +1,8 @@
 name: Deploy Bot
 on: [push]
 jobs:
-  build:
-    name: Build
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Connect to Twingate
@@ -11,9 +11,7 @@ jobs:
           service-key: ${{ secrets.SERVICE_KEY }}
 
       - name: executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          script: whoami
+        run: |
+          cat ${{ secrets.KEY }} > ~/.ssh/id_rsa.pub
+          ssh ${{ secrets.USERNAME }}@${{secrets.HOST}}
+          whoami
