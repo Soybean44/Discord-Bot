@@ -139,9 +139,7 @@ async def math(ctx: ApplicationContext, equation: Option(str, "Enter equation"))
     await ctx.respond(f"{equation} = {ans}")
 
 
-@bot.slash_command(
-    description="For mods to disable yo mama jokes if the time isnt apropriate"
-)
+@bot.slash_command(description="For mods to verify people")
 async def verify_user(
     ctx: ApplicationContext,
     user: Option(discord.SlashCommandOptionType.user, "User you want to verify"),
