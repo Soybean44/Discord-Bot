@@ -63,37 +63,40 @@ async def on_message(message):
             mommy_count = 0
 
 
-@bot.slash_command(
-    description="Repeats What you say")
+@bot.slash_command(description="Repeats What you say")
 async def echo(ctx: ApplicationContext, phrase: Option(str, "Enter Phrase")):
     await ctx.respond(f"{phrase}")
 
 
 @bot.slash_command(
-    description="Anonymous Confessions", )
-async def confession(ctx: ApplicationContext,
-                     confession: Option(str, "Enter Confession")):
+    description="Anonymous Confessions",
+)
+async def confession(
+    ctx: ApplicationContext, confession: Option(str, "Enter Confession")
+):
     global bot, confession_number
     confession_number += 1
-    confession_embed = Embed(title=f"Confession (#{confession_number})", description=confession)
+    confession_embed = Embed(
+        title=f"Confession (#{confession_number})", description=confession
+    )
     confession_channel = bot.get_channel(1044695496310132836)
     log_channel = bot.get_channel(1049512969022734437)
-    log_embed = Embed(title=f"Confession log (#{confession_number})",
-                      description=f"{ctx.user} sent the following confession")
+    log_embed = Embed(
+        title=f"Confession log (#{confession_number})",
+        description=f"{ctx.user} sent the following confession",
+    )
     log_embed.add_field(name="Timestamp", value=datetime.datetime.now())
     log_embed.add_field(name="Confession", value=confession)
     await log_channel.send(embed=log_embed)
     await confession_channel.send(embed=confession_embed)
-    await ctx.send_response(content="Confession was sent sucessfully",
-                            ephemeral=True)
+    await ctx.send_response(content="Confession was sent sucessfully", ephemeral=True)
 
 
-@bot.slash_command(
-    description="Generates pickup lines for you so you can get bitches")
-async def pickup_line_generator(ctx: ApplicationContext,
-                                ping: Option(str,
-                                             "Ping the person of your dreams",
-                                             required=False)):
+@bot.slash_command(description="Generates pickup lines for you so you can get bitches")
+async def pickup_line_generator(
+    ctx: ApplicationContext,
+    ping: Option(str, "Ping the person of your dreams", required=False),
+):
     global pickup_lines
 
     if not ping:
@@ -104,8 +107,8 @@ async def pickup_line_generator(ctx: ApplicationContext,
 
 
 @bot.slash_command(
-    description=
-    "Command for yo mama jokes so you dont have to spam mommy every time")
+    description="Command for yo mama jokes so you dont have to spam mommy every time"
+)
 async def yo_mama_generator(ctx: ApplicationContext):
     global jokes
 
@@ -114,7 +117,8 @@ async def yo_mama_generator(ctx: ApplicationContext):
 
 
 @bot.slash_command(
-    description="For mods to disable yo mama jokes if the time isnt apropriate")
+    description="For mods to disable yo mama jokes if the time isnt apropriate"
+)
 async def yo_mama_enable(ctx: ApplicationContext):
     global mommy_enable
 
@@ -128,10 +132,27 @@ async def yo_mama_enable(ctx: ApplicationContext):
         res = "You aren't allowed to do that"
     await ctx.send_response(content=res, ephemeral=True)
 
-@bot.slash_command(
-    description="solves math for you")
+
+@bot.slash_command(description="solves math for you")
 async def math(ctx: ApplicationContext, equation: Option(str, "Enter equation")):
     ans = numexpr.evaluate(equation)
     await ctx.respond(f"{equation} = {ans}")
+
+
+@bot.slash_command(
+    description="For mods to disable yo mama jokes if the time isnt apropriate"
+)
+async def verify_user(
+    ctx: ApplicationContext,
+    user: Option(discord.SlashCommandOptionType.user, "User you want to verify"),
+):
+    if ctx.guild.roles[-5] <= ctx.user.roles[-1]:
+        verification_role = ctx.guild.get_role(1019808770630623252)
+        user.add_roles(verification_role)
+        res = f"@<{user.id}> has sucessfully been verified"
+    else:
+        res = "You aren't allowed to do that"
+    await ctx.send_response(content=res, ephemeral=True)
+
 
 bot.run(os.getenv("BOT_TOKEN"))
