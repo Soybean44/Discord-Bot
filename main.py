@@ -122,7 +122,7 @@ async def yo_mama_generator(ctx: ApplicationContext):
 async def yo_mama_enable(ctx: ApplicationContext):
     global mommy_enable
 
-    if ctx.guild.roles[-5] <= ctx.user.roles[-1]:
+    if ctx.guild.get_role(1019801429403254795) <= ctx.user.roles[-1]:
         if mommy_enable:
             mommy_enable = False
         else:
@@ -144,7 +144,7 @@ async def verify_user(
     ctx: ApplicationContext,
     member: Option(discord.Member, "User you want to verify"),
 ):
-    if ctx.guild.roles[-5] <= ctx.user.roles[-1]:
+    if ctx.guild.get_role(1019801429403254795) <= ctx.user.roles[-1]:
         verification_role = ctx.guild.get_role(1019808770630623252)
         await member.add_roles(verification_role)
         res = f"{member.name} has sucessfully been verified"
