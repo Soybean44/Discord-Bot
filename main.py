@@ -142,12 +142,13 @@ async def math(ctx: ApplicationContext, equation: Option(str, "Enter equation"))
 @bot.slash_command(description="For mods to verify people")
 async def verify_user(
     ctx: ApplicationContext,
-    user: Option(discord.SlashCommandOptionType.user, "User you want to verify"),
+    user: Option(discord.User, "User you want to verify"),
 ):
     if ctx.guild.roles[-5] <= ctx.user.roles[-1]:
         verification_role = ctx.guild.get_role(1019808770630623252)
-        user.add_roles(verification_role)
-        res = f"@<{user.id}> has sucessfully been verified"
+        member = ctx.guild.get_member(user.id)
+        member.add_roles(verification_role)
+        res = f"{member.name} has sucessfully been verified"
     else:
         res = "You aren't allowed to do that"
     await ctx.send_response(content=res, ephemeral=True)
