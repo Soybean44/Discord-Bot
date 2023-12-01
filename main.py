@@ -150,7 +150,7 @@ async def verify_user(
         res = f"{member.name} has sucessfully been verified"
     else:
         res = "You aren't allowed to do that"
-    await ctx.send_response(content=res, ephemeral=True)
+    await ctx.send_response(content=res)
 
 
 bot.run(os.getenv("BOT_TOKEN"))
