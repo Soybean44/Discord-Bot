@@ -150,7 +150,7 @@ async def verify(
     if ctx.guild.get_role(119371618461340876) in ctx.user.roles:
         res = "You are already verified"
     else:
-        verification_role = ctx.guild.get_role(119371618461340876)
+        verification_role = ctx.guild.get_role(1193716184613408768)
         await member.add_roles(verification_role)
         res = f"{ctx.user.name} has sucessfully been verified"
         await general_channel.send(
