@@ -5,7 +5,7 @@ services:
     build:
           context: .
           dockerfile: Dockerfile
-    container_name: king_nerd
+    container_name: discord_bot
     volumes:
             - /home/soybean44/code/python/Discord-Bot:/app
     restart: always
