@@ -1,16 +1,17 @@
 """
-TITLE: King Nerd Bot Main File
+TITLE: Bot Main File
 AUTHOR: SOVEREIGN SHAHID
 DATE: 2022-09-24
 """
-import discord
-from discord import Option, Bot, ApplicationContext, Intents, Embed
-from dotenv import load_dotenv
-import random
+import datetime
 import json
 import os
-import datetime
+import random
+
+import discord
 import numexpr
+from discord import ApplicationContext, Bot, Embed, Intents, Option
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -32,6 +33,7 @@ mommy_count = 0
 mommy_max = 3
 
 confession_number = 0
+mod_id = 1193718992423108781
 
 
 # --- BOT STUFF --- #
@@ -79,8 +81,8 @@ async def confession(
     confession_embed = Embed(
         title=f"Confession (#{confession_number})", description=confession
     )
-    confession_channel = bot.get_channel(1044695496310132836)
-    log_channel = bot.get_channel(1049512969022734437)
+    confession_channel = bot.get_channel(1193718433578225685)
+    log_channel = bot.get_channel(1193718473981956207)
     log_embed = Embed(
         title=f"Confession log (#{confession_number})",
         description=f"{ctx.user} sent the following confession",
@@ -122,7 +124,7 @@ async def yo_mama_generator(ctx: ApplicationContext):
 async def yo_mama_enable(ctx: ApplicationContext):
     global mommy_enable
 
-    if ctx.guild.get_role(1019801429403254795) <= ctx.user.roles[-1]:
+    if ctx.guild.get_role(mod_id) <= ctx.user.roles[-1]:
         if mommy_enable:
             mommy_enable = False
         else:
@@ -144,8 +146,8 @@ async def verify_user(
     ctx: ApplicationContext,
     member: Option(discord.Member, "User you want to verify"),
 ):
-    if ctx.guild.get_role(1019801429403254795) <= ctx.user.roles[-1]:
-        verification_role = ctx.guild.get_role(1019808770630623252)
+    if ctx.guild.get_role(mod_id) <= ctx.user.roles[-1]:
+        verification_role = ctx.guild.get_role(1193716184613408768)
         await member.add_roles(verification_role)
         res = f"{member.name} has sucessfully been verified"
     else:
