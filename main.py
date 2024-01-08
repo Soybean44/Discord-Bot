@@ -146,11 +146,12 @@ async def verify(
     ctx: ApplicationContext,
 ):
     general_channel = bot.get_channel(1193715211148996648)
+    member = ctx.guild.get_member(ctx.user.id)
     if ctx.guild.get_role(119371618461340876) in ctx.user.roles:
         res = "You are already verified"
     else:
         verification_role = ctx.guild.get_role(119371618461340876)
-        await ctx.user.add_roles(verification_role)
+        await member.add_roles(verification_role)
         res = f"{ctx.user.name} has sucessfully been verified"
         await general_channel.send(
             content=f"Welcome @{ctx.user.name} go get roles in the designated channels"
