@@ -97,14 +97,14 @@ async def confession(
 @bot.slash_command(description="Generates pickup lines for you so you can get bitches")
 async def pickup_line_generator(
     ctx: ApplicationContext,
-    ping: Option(str, "Ping the person of your dreams", required=False),
+    ping: Option(discord.User, "Ping the person of your dreams", required=False),
 ):
     global pickup_lines
 
     if not ping:
         res = f"{pickup_lines[random.randrange(len(pickup_lines))]}"
     else:
-        res = f"{ping}: {pickup_lines[random.randrange(len(pickup_lines))]}"
+        res = f"{ping.mention}: {pickup_lines[random.randrange(len(pickup_lines))]}"
     await ctx.send_response(res)
 
 
@@ -154,7 +154,7 @@ async def verify(
         await member.add_roles(verification_role)
         res = f"{ctx.user.name} has sucessfully been verified"
         await general_channel.send(
-            content=f"Welcome @{ctx.user.name} go get roles in the designated channels"
+            content=f"Welcome {ctx.user.mention} go get roles in the designated channels"
         )
     await ctx.send_response(content=res)
 
