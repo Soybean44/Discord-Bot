@@ -158,6 +158,8 @@ async def verify(
             await general_channel.send(
                 content=f"Welcome {ctx.user.mention} go get roles in the designated channels"
             )
+        else:
+            res = f"{ctx.user.mention}'s account is too young to enter"
     await ctx.send_response(content=res)
 
 
