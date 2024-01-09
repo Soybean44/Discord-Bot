@@ -147,11 +147,13 @@ async def verify(
 ):
     general_channel = bot.get_channel(1193715211148996648)
     member = ctx.guild.get_member_named(ctx.user.name)
-    if ctx.guild.get_role(119371618461340876) in ctx.user.roles:
+    verification_role = ctx.guild.get_role(1193716184613408768)
+    if verification_role in ctx.user.roles:
         res = "You are already verified"
     else:
-        join_date = member.joined_at
-        if join_date and join_date > datetime.timedelta(days=14):
+        create_date = ctx.user.created_at
+        join_date = ctx.user.joined_at
+        if create_date and (create_date + datetime.timedelta(days=14)) < join_date:
             verification_role = ctx.guild.get_role(1193716184613408768)
             await member.add_roles(verification_role)
             res = f"{ctx.user.name} has sucessfully been verified"
