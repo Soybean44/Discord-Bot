@@ -13,6 +13,8 @@ import numexpr
 from discord import ApplicationContext, Bot, Embed, Intents, Option
 from dotenv import load_dotenv
 
+from db import Confession, Session, engine
+
 load_dotenv()
 
 # --- VARIABLES --- #
@@ -73,9 +75,7 @@ async def echo(ctx: ApplicationContext, phrase: Option(str, "Enter Phrase")):
 @bot.slash_command(
     description="Anonymous Confessions",
 )
-async def confession(
-    ctx: ApplicationContext, confession: Option(str, "Enter Confession")
-):
+async def confess(ctx: ApplicationContext, confession: Option(str, "Enter Confession")):
     global bot, confession_number
     confession_number += 1
     confession_embed = Embed(
