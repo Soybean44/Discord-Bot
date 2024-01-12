@@ -31,9 +31,10 @@ def uploadConfession(confession, timestamp, user):
 
     return confession_obj
 
+
 def getConfession(ID):
     global engine
-    stmt = select(Confession).with(Confession.id == ID)
+    stmt = select(Confession).where(Confession.id == ID)
     confessions = []
     with Session(engine) as session:
         for row in session.exec(stmt):
