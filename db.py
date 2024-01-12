@@ -3,8 +3,6 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
 
 engine = create_engine("sqlite+pysqlite:///database.db")
 
-session = Session(engine)
-
 
 class Base(DeclarativeBase):
     pass
@@ -20,6 +18,7 @@ class Confession(Base):
 
 
 Base.metadata.create_all(engine)
+session = Session(engine)
 
 
 def uploadConfession(confession, timestamp, user):
