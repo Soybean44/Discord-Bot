@@ -88,12 +88,12 @@ async def confess(ctx: ApplicationContext, confession: Option(str, "Enter Confes
 
 
 @bot.slash_command(description="View Confession Log (Mods only)")
-async def get_confession(ctx: ApplicationContext, ID: Option(int, "Enter Confession")):
+async def get_confession(ctx: ApplicationContext, id: Option(int, "Enter Confession")):
     global bot
     if ctx.guild.get_role(mod_id) <= ctx.user.roles[-1]:
-        obj = getConfession(ID)
+        obj = getConfession(id)
         if obj is None:
-            await ctx.send_response(content=f"confession #{ID} does not exist")
+            await ctx.send_response(content=f"confession #{id} does not exist")
         else:
             log_embed = Embed(
                 title=f"Confession log (#{obj.id})",
