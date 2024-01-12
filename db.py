@@ -34,11 +34,4 @@ def uploadConfession(confession, timestamp, user):
 
 def getConfession(id):
     global engine, session
-    stmt = select(Confession).where(Confession.id == id)
-    confessions = []
-    for row in session.execute(stmt):
-        confessions.append(row)
-    if len(confessions) > 0:
-        return confessions[0]
-    else:
-        return None
+    return session.scalars(select(Confession).where(Confession.id == int(id)))
