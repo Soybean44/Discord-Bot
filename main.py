@@ -12,8 +12,9 @@ import discord
 import numexpr
 from discord import ApplicationContext, Bot, Embed, Intents, Option
 from dotenv import load_dotenv
+from sqlalchemy.orm import Session
 
-from db import Confession, Session, engine
+from db import getConfession, uploadConfession
 
 load_dotenv()
 
@@ -34,7 +35,6 @@ mommy_enable = True
 mommy_count = 0
 mommy_max = 3
 
-confession_number = 0
 mod_id = 1193718992423108781
 
 
@@ -76,22 +76,34 @@ async def echo(ctx: ApplicationContext, phrase: Option(str, "Enter Phrase")):
     description="Anonymous Confessions",
 )
 async def confess(ctx: ApplicationContext, confession: Option(str, "Enter Confession")):
-    global bot, confession_number
-    confession_number += 1
+    global bot
+    timestamp = datetime.datetime.now()
+    obj = uploadConfession(confession, timestamp, ctx.user.name)
     confession_embed = Embed(
-        title=f"Confession (#{confession_number})", description=confession
+        title=f"Confession (#{obj.id})", description=obj.confession
     )
     confession_channel = bot.get_channel(1193718433578225685)
-    log_channel = bot.get_channel(1193718473981956207)
-    log_embed = Embed(
-        title=f"Confession log (#{confession_number})",
-        description=f"{ctx.user} sent the following confession",
-    )
-    log_embed.add_field(name="Timestamp", value=datetime.datetime.now())
-    log_embed.add_field(name="Confession", value=confession)
-    await log_channel.send(embed=log_embed)
     await confession_channel.send(embed=confession_embed)
     await ctx.send_response(content="Confession was sent sucessfully", ephemeral=True)
+
+
+@bot.slash_command(description="View Confession Log (Mods only)")
+async def get_confession(ctx: ApplicationContext, ID: Option(int, "Enter Confession")):
+    global bot
+    if ctx.guild.get_role(mod_id) <= ctx.user.roles[-1]:
+        obj = getConfession(ID)
+        if obj is None:
+            await ctx.send_response(content=f"confession #{ID} does not exist")
+        else:
+            log_embed = Embed(
+                title=f"Confession log (#{obj.id})",
+                description=f"{obj.user} sent the following confession",
+            )
+            log_embed.add_field(name="Timestamp", value=obj.timestamp)
+            log_embed.add_field(name="Confession", value=obj.confession)
+            await ctx.send_response(embed=log_embed)
+    else:
+        await ctx.send_response(content="nuh uh uh", ephemeral=True)
 
 
 @bot.slash_command(description="Generates pickup lines for you so you can get bitches")
