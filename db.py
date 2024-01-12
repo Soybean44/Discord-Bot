@@ -38,5 +38,4 @@ def uploadConfession(confession, timestamp, user):
 def getConfession(id):
     global engine, session
     obj = session.scalars(select(Confession).where(Confession.id == int(id))).first()
-    print(obj)
     return obj
