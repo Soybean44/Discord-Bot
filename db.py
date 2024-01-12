@@ -16,6 +16,9 @@ class Confession(Base):
     timestamp: Mapped[str] = mapped_column()
     user: Mapped[str] = mapped_column()
 
+    def __repr__(self) -> str:
+        return f"Confession(id={self.id!r}, user={self.user!r})"
+
 
 Base.metadata.create_all(engine)
 session = Session(engine)
@@ -34,4 +37,6 @@ def uploadConfession(confession, timestamp, user):
 
 def getConfession(id):
     global engine, session
-    return session.scalars(select(Confession).where(Confession.id == int(id)))
+    obj = session.scalars(select(Confession).where(Confession.id == int(id)))
+    print(obj)
+    return obj
