@@ -6,6 +6,8 @@ services:
           context: .
           dockerfile: Dockerfile
     container_name: discord_bot
+    volumes:
+        - ./:/usr/src/app
     restart: always
     ports:
       - "6463:6472"
