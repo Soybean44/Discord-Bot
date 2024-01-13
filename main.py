@@ -9,7 +9,6 @@ import os
 import random
 
 import discord
-import numexpr
 from discord import ApplicationContext, Bot, Embed, Intents, Option
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
@@ -145,12 +144,6 @@ async def yo_mama_enable(ctx: ApplicationContext):
     else:
         res = "You aren't allowed to do that"
     await ctx.send_response(content=res, ephemeral=True)
-
-
-@bot.slash_command(description="solves math for you")
-async def math(ctx: ApplicationContext, equation: Option(str, "Enter equation")):
-    ans = numexpr.evaluate(equation)
-    await ctx.respond(f"{equation} = {ans}")
 
 
 @bot.slash_command(description="use this to get verified")
