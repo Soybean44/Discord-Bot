@@ -1,4 +1,4 @@
-discord.py==2.3.2
+pycord==2.4.0
 numexpr==2.8.4
 python-dotenv==1.0.0
 SQLAlchemy==2.0.25
