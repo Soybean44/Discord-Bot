@@ -1,4 +1,4 @@
-pycord==2.4.0
-numexpr==2.8.4
+py-cord==2.4.0
+numexpr==2.8.8
 python-dotenv==1.0.0
 SQLAlchemy==2.0.25
