@@ -13,7 +13,7 @@ from discord import ApplicationContext, Bot, Embed, Intents, Option
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 
-from db import getConfession, uploadConfess
+from db import getConfession, uploadConfession
 
 load_dotenv()
 
@@ -77,7 +77,7 @@ async def echo(ctx: ApplicationContext, phrase: Option(str, "Enter Phrase")):
 async def confess(ctx: ApplicationContext, confession: Option(str, "Enter Confession")):
     global bot
     timestamp = datetime.datetime.now()
-    obj = uploadConfess(confession, timestamp, ctx.user.name)
+    obj = uploadConfession(confession, timestamp, ctx.user.name)
     confession_embed = Embed(
         title=f"Confession (#{obj.id})", description=obj.confession
     )
